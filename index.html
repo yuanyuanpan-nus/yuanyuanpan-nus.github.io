@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Yuanyuan Pan — Ph.D. candidate in Finance at NUS.">
+  <title>Yuanyuan Pan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --text: #1c2433;
+      --text-muted: #5c6578;
+      --accent: #1e4d6b;
+      --border: #e5e5e5;
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Source Sans 3", system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -3rem;
+      left: 1rem;
+      background: #fff;
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      z-index: 10000;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 1rem; outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .tabs button {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: color 150ms ease, background 150ms ease;
+    }
+    .tabs button:hover { color: var(--accent); }
+    .tabs button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .tabs button[aria-selected="true"] {
+      color: var(--accent);
+      background: #f0f4f7;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .panel { display: none; }
+    .panel.is-active { display: block; }
+
+    .intro-layout {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+    }
+
+    .avatar-wrap {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 200px;
+      max-width: 100%;
+    }
+
+    .avatar {
+      width: 200px;
+      height: auto;
+      max-width: 100%;
+      display: block;
+      border: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .intro-text p { margin-bottom: 1rem; }
+    .intro-text p:last-child { margin-bottom: 0; }
+    .intro-text .job-market { font-weight: 600; }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .panel > h2:first-child,
+    .intro-layout + h2 {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text);
+    }
+    h3:first-of-type { margin-top: 0; }
+
+    .paper-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+    }
+    .paper-table th,
+    .paper-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 0.75rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .paper-table th {
+      font-weight: 600;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    .paper-table th:first-child,
+    .paper-table td:first-child { padding-left: 0; }
+    .paper-table th:last-child,
+    .paper-table td:last-child { padding-right: 0; }
+    .paper-table .col-title { width: 42%; }
+    .paper-table .col-status {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .paper-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .paper-list li {
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9375rem;
+      line-height: 1.55;
+    }
+    .paper-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .paper-list li:first-child {
+      padding-top: 0;
+    }
+    .paper-list .paper-title {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--text);
+    }
+    .paper-list .paper-authors {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    .paper-list .paper-status {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 0.875rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .research-item {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .research-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .research-item h3 {
+      margin-top: 0;
+      margin-bottom: 0.35rem;
+      font-size: 1.1rem;
+    }
+
+    .research-meta {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .research-meta .status {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .research-item p {
+      font-size: 0.9375rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .research-item .label {
+      font-weight: 600;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .teaching-group { margin-bottom: 1.5rem; }
+    .teaching-group h3 { margin-bottom: 0.5rem; }
+    .teaching-list {
+      list-style: none;
+      font-size: 0.9375rem;
+    }
+    .teaching-list li {
+      padding: 0.4rem 0;
+      padding-left: 1rem;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .teaching-list li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+    .teaching-list li:last-child { border-bottom: none; }
+
+    .contact-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      width: 100%;
+    }
+
+    .social-icon-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+    }
+    .social-icon-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: #f0f4f7;
+    }
+    .social-icon-link:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .social-icon-link svg {
+      width: 1.35rem;
+      height: 1.35rem;
+    }
+    .social-icon-link svg path {
+      fill: currentColor;
+    }
+
+    .social-icon-link--ssrn {
+      padding: 8px;
+    }
+    .social-icon-link--ssrn img {
+      width: 1.75rem;
+      height: 1.75rem;
+      display: block;
+      object-fit: contain;
+    }
+    .social-icon-link--ssrn:hover img {
+      opacity: 0.82;
+    }
+
+    .cv-actions {
+      font-size: 0.9375rem;
+      margin-bottom: 1rem;
+    }
+    .cv-actions a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .cv-actions a:hover { text-decoration: underline; }
+    .cv-actions a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .cv-embed {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 9rem);
+      min-height: 32rem;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+
+    @media (max-width: 640px) {
+      .intro-layout { flex-direction: column; align-items: center; text-align: center; }
+      .contact-links { justify-content: center; }
+      .paper-table { display: block; }
+      .paper-table thead { display: none; }
+      .paper-table tbody,
+      .paper-table tr,
+      .paper-table td { display: block; width: 100%; }
+      .paper-table tr {
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .paper-table td {
+        border: none;
+        padding: 0.2rem 0;
+      }
+      .paper-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        margin-bottom: 0.15rem;
+      }
+      .header-inner { flex-direction: column; align-items: stretch; }
+      .tabs { justify-content: center; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#" data-tab="home">Yuanyuan Pan</a>
+      <nav aria-label="Main">
+        <ul class="tabs" role="tablist">
+          <li role="presentation"><button type="button" role="tab" id="tab-home" aria-selected="true" aria-controls="panel-home">Home</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tab-research" aria-selected="false" aria-controls="panel-research" tabindex="-1">Research</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tab-teaching" aria-selected="false" aria-controls="panel-teaching" tabindex="-1">Teaching</button></li>
+          <li role="presentation"><button type="button" role="tab" id="tab-cv" aria-selected="false" aria-controls="panel-cv" tabindex="-1">CV</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <!-- HOME -->
+    <div id="panel-home" class="panel is-active" role="tabpanel" aria-labelledby="tab-home">
+      <div class="intro-layout">
+        <div class="avatar-wrap">
+          <img class="avatar" src="avatar.jpg" width="400" height="514" alt="Portrait of Yuanyuan Pan">
+          <div class="contact-links">
+            <a class="social-icon-link" href="mailto:yuanyuan@u.nus.edu" aria-label="Email yuanyuan@u.nus.edu" title="yuanyuan@u.nus.edu">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </a>
+            <a class="social-icon-link" href="https://www.linkedin.com/in/yuanyuan-pan-frm-359446112/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 4.127 0 2.063 2.063 0 0 1-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a class="social-icon-link social-icon-link--ssrn" href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=4965787" target="_blank" rel="noopener noreferrer" aria-label="SSRN author page" title="SSRN">
+              <img src="icons/ssrn.svg" width="28" height="28" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="intro-text">
+          <p>Welcome to my Home Page! I am a Ph.D. candidate in Finance at the National University of Singapore (NUS) Business School.</p>
+          <p>My research interests are Household Finance, Retail Trading, and Behavioral Finance.</p>
+          <p>I am supervised by <a href="https://discovery.nus.edu.sg/220-allaudeen-hameed" target="_blank" rel="noopener noreferrer">Prof. Allaudeen Hameed</a> and <a href="https://www.karstenmueller.com/" target="_blank" rel="noopener noreferrer">Prof. Karsten Müller</a>. I was a Visiting Ph.D. Student at the University of Southern California in 2025 supervised by <a href="https://sites.uci.edu/dhirshle/" target="_blank" rel="noopener noreferrer">Prof. David Hirshleifer</a>.</p>
+          <p>I hold an M.S. in Statistics from NUS and a B.S. in Mathematics from Soochow University.</p>
+          <p class="job-market">I am on the 2026-2027 job market.</p>
+        </div>
+      </div>
+
+      <h2>Working Papers</h2>
+      <ul class="paper-list">
+        <li>
+          <span class="paper-title">Social Media and Stock Market Participation</span>
+          <span class="paper-authors">with <a href="https://www.karstenmueller.com/" target="_blank" rel="noopener noreferrer">Karsten Müller</a>, <a href="https://carloschwarz.eu/" target="_blank" rel="noopener noreferrer">Carlo Schwarz</a></span>
+          <span class="paper-status">Revise and Resubmit, Journal of Financial and Quantitative Analysis</span>
+        </li>
+        <li>
+          <span class="paper-title">Trading in Your Golden Years: The Effects of Early Pension Withdrawal on Individual Investments</span>
+          <span class="paper-authors">with <a href="https://www.ushakrisna.com/" target="_blank" rel="noopener noreferrer">Sumit Agarwal</a>, <a href="https://discovery.nus.edu.sg/220-allaudeen-hameed" target="_blank" rel="noopener noreferrer">Allaudeen Hameed</a>, Chek Ann Tan</span>
+          <span class="paper-status">Accepted, Review of Finance</span>
+        </li>
+      </ul>
+
+      <h2>Work in Progress</h2>
+      <ul class="paper-list">
+        <li>
+          <span class="paper-title">Competing Signals: How Retail Investors Allocate Attention Between Macro and Micro News</span>
+          <span class="paper-authors">Yuanyuan Pan</span>
+          <span class="paper-status">Job Market Paper</span>
+        </li>
+        <li>
+          <span class="paper-title">Nominal Price Preferences, Investor Welfare and Market Quality</span>
+          <span class="paper-authors">with <a href="https://discovery.nus.edu.sg/220-allaudeen-hameed" target="_blank" rel="noopener noreferrer">Allaudeen Hameed</a>, <a href="https://sites.google.com/view/zhenghuini/home" target="_blank" rel="noopener noreferrer">Zhenghui Ni</a></span>
+        </li>
+        <li>
+          <span class="paper-title">Observations from your Neighbourhood: Peer Effects on Investment Decisions</span>
+          <span class="paper-authors">with <a href="https://www.ushakrisna.com/" target="_blank" rel="noopener noreferrer">Sumit Agarwal</a>, <a href="https://discovery.nus.edu.sg/220-allaudeen-hameed" target="_blank" rel="noopener noreferrer">Allaudeen Hameed</a>, Chek Ann Tan</span>
+        </li>
+        <li>
+          <span class="paper-title">Company Fundamental Data Standardization Project</span>
+          <span class="paper-authors">with <a href="https://sites.uci.edu/dhirshle/" target="_blank" rel="noopener noreferrer">David Hirshleifer</a>, <a href="https://www.karstenmueller.com/" target="_blank" rel="noopener noreferrer">Karsten Müller</a>, <a href="https://www.david-samuel.net/" target="_blank" rel="noopener noreferrer">David Samuel</a>, <a href="https://www.anderson.ucla.edu/faculty-and-research/accounting/faculty/teoh#tab-research" target="_blank" rel="noopener noreferrer">Siew Hong Teoh</a></span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- RESEARCH -->
+    <div id="panel-research" class="panel" role="tabpanel" aria-labelledby="tab-research" hidden>
+      <h2>Working Papers</h2>
+
+      <article class="research-item">
+        <h3>Social Media and Stock Market Participation</h3>
+        <p class="research-meta">with <a href="https://www.karstenmueller.com/" target="_blank" rel="noopener noreferrer">Karsten Müller</a>, <a href="https://carloschwarz.eu/" target="_blank" rel="noopener noreferrer">Carlo Schwarz</a> · <span class="status">Revise and Resubmit, Journal of Financial and Quantitative Analysis</span></p>
+        <p class="label">Abstract</p>
+        <p>Using plausibly exogenous variation in regional Twitter adoption in the United States, we show that a 10% increase in social media usage causes a 2.5% rise in stock ownership. Consistent with lowering the costs of acquiring information, Twitter has larger effects in counties with low pre-existing stock market knowledge, improves knowledge about asset returns, and leads to a decline in the number of financial advisors. Social media also boosts interest in volatile “meme stocks” favored by retail investors. Our findings highlight the unique influence of social media on household portfolio decisions, distinct from other modern information technologies.</p>
+        <p class="label">Presentations</p>
+        <p>2024 American Finance Association (AFA)*, 2024 CEPR Eighth European Workshop on Household Finance*, 2023 Boulder Summer Conference on Consumer Financial Decision Making, 2023 Swiss Winter Conference on Financial Intermediation*, Society of Economics of the Household (SEHO) Meetings*, National University of Singapore Seminar, University of Colorado Boulder Seminar*, Università Bocconi Seminar*</p>
+      </article>
+
+      <article class="research-item">
+        <h3>Trading in Your Golden Years: The Effects of Early Pension Withdrawal on Individual Investments</h3>
+        <p class="research-meta">with <a href="https://www.ushakrisna.com/" target="_blank" rel="noopener noreferrer">Sumit Agarwal</a>, <a href="https://discovery.nus.edu.sg/220-allaudeen-hameed" target="_blank" rel="noopener noreferrer">Allaudeen Hameed</a>, Chek Ann Tan · <span class="status">Accepted, Review of Finance</span></p>
+        <p class="label">Abstract</p>
+        <p>We examine the causal effects of a policy allowing early withdrawal of pension funds upon reaching age 55 on individuals’ investment behavior. Using transaction-level data from private brokerage accounts, we identify significant shifts in investment patterns following early withdrawals, including a 9% to 18% increase in trading volume. Individuals tend to trade more leveraged instruments and increase their portfolio volatility, thereby exposing their savings to greater financial risks. These effects are more pronounced among males and low-income individuals. Additionally, our analyses reveal that these trading behaviors lead to substantial losses, ultimately diminishing retirement wealth.</p>
+        <p class="label">Presentations</p>
+        <p>Australian National University Seminar*, Humboldt University Seminar*, 2024 Asian Finance Association Conference*, Bond University Seminar*, 2024 China International Conference in Finance (CICF), 2024 European Finance Association (EFA), 2023 ZEW Public Finance Conference*, National University of Singapore Seminar*</p>
+      </article>
+
+      <h2>Work in Progress</h2>
+
+      <article class="research-item">
+        <h3>Competing Signals: How Retail Investors Allocate Attention Between Macro and Micro News</h3>
+        <p class="research-meta">Yuanyuan Pan · <span class="status">Job Market Paper</span></p>
+        <p class="label">Abstract</p>
+        <p>Using granular brokerage data from Singapore, I study how retail investors process firm-specific and macroeconomic information. On days with major foreign macro news, retail trading in firms with earnings announcements is 35% lower relative to other days. This effect reflects a reallocation of attention towards surprising information. The lower trading volume on macro days disappears when macro news contains no surprise, increases with the magnitude of the macro news surprise, and decreases when macro news and earnings announcements are aligned. In response to macro news, investors increase their trading in funds exposed to the country of the news release. Among investors who trade on days where macro news and earnings announcements overlap, disagreement falls, absolute order imbalance rises, but the sensitivity of trading speed to earnings surprise magnitude is reduced. Retail investors’ trades on macro-release overlap days outperform their own trades on non-overlap days by up to 2 percentage points per year, which comes entirely from market timing rather than stock picking. Taken together, my results show evidence that retail investors rationally reallocate their focus when faced with conflicting news.</p>
+      </article>
+
+      <article class="research-item">
+        <h3>Nominal Price Preferences, Investor Welfare and Market Quality</h3>
+        <p class="research-meta">with <a href="https://discovery.nus.edu.sg/220-allaudeen-hameed" target="_blank" rel="noopener noreferrer">Allaudeen Hameed</a>, <a href="https://sites.google.com/view/zhenghuini/home" target="_blank" rel="noopener noreferrer">Zhenghui Ni</a></p>
+        <p class="label">Abstract</p>
+        <p>We show that a behavioral preference for low-priced stocks is individually costly but collectively beneficial: retail investors lose money by overweighting low-priced stocks, yet their presence sustains liquidity, price efficiency, and valuations for all market participants. We establish this using the Singapore Exchange’s Minimum Trading Price rule, which generated staggered, regulation-induced reverse splits, combined with proprietary account-level trades that trace causal effects on investor behavior and market outcomes. When a held stock is pushed out of the low-price tier, retail investors cut trading by 70–77% and substitute into other low-priced stocks, preserving the price label rather than the underlying return distribution. Within-investor buy-minus-sell portfolios show that low-price trades underperform the same investor’s high-price trades by 2.8% per annum, particularly after the shock leads to reallocation into substitute low-priced stocks. The unchanged volatility and skewness of treated stocks confirm that investors react to salient prices rather than changes in lottery characteristics. At the stock level, expelling the low-price retail clientele produces the mirror image: liquidity deteriorates, price discovery slows, short-term reversals weaken, return co-movement re-sorts across price tiers, and valuations fall by 5%, with no concurrent change in fundamentals. A regulation designed to protect retail investors thus eliminates a source of market quality that benefited all participants, revealing a fundamental tension between investor protection and market quality in retail-dominated markets.</p>
+        <p class="label">Presentations</p>
+        <p>CICF 2026 (scheduled), Syracuse University*, NUS, Five-Star Asia-Pacific Workshop in Finance 2026, 2nd HKU Next-Gen Finance PhD Workshop, Stony Brook University-SUNY*, University of Edinburgh*, Corvinus University of Budapest*</p>
+      </article>
+
+      <article class="research-item">
+        <h3>Observations from your Neighbourhood: Peer Effects on Investment Decisions</h3>
+        <p class="research-meta">with <a href="https://www.ushakrisna.com/" target="_blank" rel="noopener noreferrer">Sumit Agarwal</a>, <a href="https://discovery.nus.edu.sg/220-allaudeen-hameed" target="_blank" rel="noopener noreferrer">Allaudeen Hameed</a>, Chek Ann Tan</p>
+      </article>
+
+      <article class="research-item">
+        <h3>Company Fundamental Data Standardization Project</h3>
+        <p class="research-meta">with <a href="https://sites.uci.edu/dhirshle/" target="_blank" rel="noopener noreferrer">David Hirshleifer</a>, <a href="https://www.karstenmueller.com/" target="_blank" rel="noopener noreferrer">Karsten Müller</a>, <a href="https://www.david-samuel.net/" target="_blank" rel="noopener noreferrer">David Samuel</a>, <a href="https://www.anderson.ucla.edu/faculty-and-research/accounting/faculty/teoh#tab-research" target="_blank" rel="noopener noreferrer">Siew Hong Teoh</a></p>
+      </article>
+    </div>
+
+    <!-- TEACHING -->
+    <div id="panel-teaching" class="panel" role="tabpanel" aria-labelledby="tab-teaching" hidden>
+      <h2>Teaching Experience</h2>
+
+      <div class="teaching-group">
+        <h3>Graduate Courses (Master and MBA)</h3>
+        <ul class="teaching-list">
+          <li>Foundation of Investments — TA for Karsten Müller (Spring 2022, 2023, 2024)</li>
+          <li>Statistics and Analytics in Finance — TA for Lee Yen Tiek (Fall 2022, 2023, 2024)</li>
+          <li>Investment Analysis and Management (MBA) — TA for Karsten Müller (Spring 2024)</li>
+          <li>Financial Technology and Analytics — TA for Lee Yen Tiek (Fall 2024)</li>
+          <li>Applied Investment Strategies — TA for Victor Ong Hock Keong (Fall 2023)</li>
+        </ul>
+      </div>
+
+      <div class="teaching-group">
+        <h3>Undergraduate Courses</h3>
+        <ul class="teaching-list">
+          <li>Corporate Finance — TA for Allaudeen Hameed (Fall 2024)</li>
+          <li>FinTech and Financial Data Analytics — TA for Lee Yen Tiek (Spring 2024)</li>
+          <li>Finance — Tutor (Spring 2025)</li>
+        </ul>
+      </div>
+
+      <div class="teaching-group">
+        <h3>Specialized Training Programs</h3>
+        <ul class="teaching-list">
+          <li>GSE Global Young Business Leader Programme — Tutor (2022–2024, Summer and Winter Sessions)</li>
+          <li>Finance with Python (AIDF Program) — TA for Lee Yen Tiek (Summer 2023)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CV -->
+    <div id="panel-cv" class="panel" role="tabpanel" aria-labelledby="tab-cv" hidden>
+      <p class="cv-actions">
+        <a href="material/CV_yuanyuan.pdf" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+        ·
+        <a href="material/CV_yuanyuan.pdf" download>Download PDF</a>
+      </p>
+      <iframe class="cv-embed" src="material/CV_yuanyuan.pdf" title="Yuanyuan Pan — Curriculum Vitae (PDF)"></iframe>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var tabs = document.querySelectorAll('[role="tab"]');
+      var panels = document.querySelectorAll('[role="tabpanel"]');
+      var brand = document.querySelector('.brand[data-tab]');
+
+      function activateTab(tabId) {
+        tabs.forEach(function (tab) {
+          var isSelected = tab.id === 'tab-' + tabId;
+          tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+          tab.tabIndex = isSelected ? 0 : -1;
+        });
+        panels.forEach(function (panel) {
+          var isActive = panel.id === 'panel-' + tabId;
+          panel.classList.toggle('is-active', isActive);
+          panel.hidden = !isActive;
+        });
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          activateTab(tab.id.replace('tab-', ''));
+        });
+        tab.addEventListener('keydown', function (e) {
+          var idx = Array.prototype.indexOf.call(tabs, tab);
+          var next = -1;
+          if (e.key === 'ArrowRight') next = (idx + 1) % tabs.length;
+          if (e.key === 'ArrowLeft') next = (idx - 1 + tabs.length) % tabs.length;
+          if (next >= 0) {
+            e.preventDefault();
+            tabs[next].focus();
+            activateTab(tabs[next].id.replace('tab-', ''));
+          }
+        });
+      });
+
+      if (brand) {
+        brand.addEventListener('click', function (e) {
+          e.preventDefault();
+          activateTab('home');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
