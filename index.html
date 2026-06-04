@@ -161,6 +161,17 @@
       padding-top: 0;
       border-top: none;
     }
+    .research-item + h2,
+    .paper-list + h2 {
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .research-item:has(+ h2) {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
 
     h3 {
       font-family: var(--font-display);
@@ -289,15 +300,12 @@
     }
     .teaching-list li {
       padding: 0.4rem 0;
-      padding-left: 1rem;
-      position: relative;
       border-bottom: 1px solid var(--border);
     }
-    .teaching-list li::before {
-      content: "—";
-      position: absolute;
-      left: 0;
-      color: var(--text-muted);
+    .teaching-list .course-name {
+      font-size: 0.875rem;
+      color: var(--accent);
+      font-weight: 500;
     }
     .teaching-list li:last-child { border-bottom: none; }
 
@@ -550,28 +558,28 @@
       <div class="teaching-group">
         <h3>Graduate Courses (Master and MBA)</h3>
         <ul class="teaching-list">
-          <li>Foundation of Investments — TA for Karsten Müller (Spring 2022, 2023, 2024)</li>
-          <li>Statistics and Analytics in Finance — TA for Lee Yen Tiek (Fall 2022, 2023, 2024)</li>
-          <li>Investment Analysis and Management (MBA) — TA for Karsten Müller (Spring 2024)</li>
-          <li>Financial Technology and Analytics — TA for Lee Yen Tiek (Fall 2024)</li>
-          <li>Applied Investment Strategies — TA for Victor Ong Hock Keong (Fall 2023)</li>
+          <li><span class="course-name">Foundation of Investments</span> — TA for Karsten Müller (Spring 2022, 2023, 2024)</li>
+          <li><span class="course-name">Statistics and Analytics in Finance</span> — TA for Lee Yen Tiek (Fall 2022, 2023, 2024)</li>
+          <li><span class="course-name">Investment Analysis and Management (MBA)</span> — TA for Karsten Müller (Spring 2024)</li>
+          <li><span class="course-name">Financial Technology and Analytics</span> — TA for Lee Yen Tiek (Fall 2024)</li>
+          <li><span class="course-name">Applied Investment Strategies</span> — TA for Victor Ong Hock Keong (Fall 2023)</li>
         </ul>
       </div>
 
       <div class="teaching-group">
         <h3>Undergraduate Courses</h3>
         <ul class="teaching-list">
-          <li>Corporate Finance — TA for Allaudeen Hameed (Fall 2024)</li>
-          <li>FinTech and Financial Data Analytics — TA for Lee Yen Tiek (Spring 2024)</li>
-          <li>Finance — Tutor (Spring 2025)</li>
+          <li><span class="course-name">Corporate Finance</span> — TA for Allaudeen Hameed (Fall 2024)</li>
+          <li><span class="course-name">FinTech and Financial Data Analytics</span> — TA for Lee Yen Tiek (Spring 2024)</li>
+          <li><span class="course-name">Finance</span> — Tutor (Spring 2025)</li>
         </ul>
       </div>
 
       <div class="teaching-group">
         <h3>Specialized Training Programs</h3>
         <ul class="teaching-list">
-          <li>GSE Global Young Business Leader Programme — Tutor (2022–2024, Summer and Winter Sessions)</li>
-          <li>Finance with Python (AIDF Program) — TA for Lee Yen Tiek (Summer 2023)</li>
+          <li><span class="course-name">GSE Global Young Business Leader Programme</span> — Tutor (2022–2024, Summer and Winter Sessions)</li>
+          <li><span class="course-name">Finance with Python (AIDF Program)</span> — TA for Lee Yen Tiek (Summer 2023)</li>
         </ul>
       </div>
     </div>
