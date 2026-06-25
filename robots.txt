@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://frankxiewenjun-oss.github.io/academic_page_pyy/sitemap.xml
+Sitemap: https://yuanyuanpan-nus.github.io/sitemap.xml
